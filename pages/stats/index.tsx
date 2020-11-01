@@ -4,3 +4,5 @@ import Analytics from '../../components/analytics/Analytics';
 const Stats: FunctionComponent = () => {
     return <Analytics />;
 };
+
+export default Stats;
