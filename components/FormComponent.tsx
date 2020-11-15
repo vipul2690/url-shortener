@@ -16,9 +16,9 @@ const FormComponent: FunctionComponent = () => {
     const onFinish = async (values) => {
         console.log('values: ', JSON.stringify(values));
         try {
-            const result = await postData(`${api_route}shortUrls`, JSON.stringify(values));
-            if (result.urls && result.urls.length) {
-                setUrlData(result.urls[0]);
+            const result = await postData(`${api_route}urls`, JSON.stringify(values));
+            if (result) {
+                setUrlData(result);
             }
             console.log('result: ', result);
         } catch (err) {
@@ -39,7 +39,7 @@ const FormComponent: FunctionComponent = () => {
                 <Col span={10} offset={6}>
                     <Form form={form} layout="vertical" labelAlign="left" name="url-shortener" onFinish={onFinish}>
                         <Form.Item
-                            name="url"
+                            name="full_url"
                             label="Please enter your URL here"
                             rules={[{ required: true, message: 'URL is required' }]}
                         >
@@ -54,7 +54,7 @@ const FormComponent: FunctionComponent = () => {
                     </Form>
                 </Col>
             </Row>
-            {urlData.shortUrl && (
+            {urlData.short_url && (
                 <Row>
                     <Col span={10} offset={6}>
                         <ResultComponent updateUrlData={updateData} urlData={urlData} />

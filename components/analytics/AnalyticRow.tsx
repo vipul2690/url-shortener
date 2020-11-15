@@ -1,14 +1,18 @@
-import { Card, Statistic } from 'antd';
+import { Card, Divider, Statistic } from 'antd';
 import React, { FunctionComponent } from 'react';
+import { IUrl } from '../../models/url';
 
-const AnalyticRow: FunctionComponent = () => {
+interface IProps {
+    url: IUrl;
+}
+
+const AnalyticRow: FunctionComponent<IProps> = ({ url }: IProps) => {
     return (
-        <Card.Grid>
-            <h3>URL</h3>
-            <h5>Shortened URL</h5>
-
-            <Statistic title="Total Clicks" value={100} />
-            <Statistic title="Top Countries" value="India" />
+        <Card.Grid style={{ width: '100%' }}>
+            <h3>URL: {url.full_url}</h3>
+            <h5>Short Url: {url.short_url}</h5>
+            <Divider />
+            <Statistic title="Total Clicks" value={url.hits} />
         </Card.Grid>
     );
 };

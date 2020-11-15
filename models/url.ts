@@ -1,17 +1,14 @@
 export interface ICountryAnalytic {
-    ip: Array<string>;
     country: string;
-    clicks: number;
-}
-
-interface IAnalytic {
-    totalClicks: number;
-    countryData?: Array<ICountryAnalytic>;
+    hits: number;
 }
 
 export interface IUrl {
-    urlId: string;
-    fullUrl: string;
-    shortUrl: string;
-    analytics: IAnalytic;
+    id: string;
+    full_url: string;
+    short_url: string;
+    hits: number;
+    created_at: Date;
+    updated_at: Date;
+    analytics?: Array<ICountryAnalytic>;
 }

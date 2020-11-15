@@ -14,24 +14,11 @@ interface IProps {
 const ResultComponent: FunctionComponent<IProps> = ({ urlData, updateUrlData }: IProps) => {
     const _handleOnClick = async () => {
         try {
-            const ip = await v4();
-            if (urlData.analytics.countryData && urlData.analytics.countryData.length) {
-                const analytic = {
-                    ip: [ip],
-                    clicks: 1,
-                    country: '',
-                };
-                urlData.analytics.countryData.push(analytic);
+            const data = {
+                hits: urlData.hits + 1,
             }
-            const object: IUrl = {
-                ...urlData,
-                analytics: {
-                    totalClicks: urlData.analytics.totalClicks + 1,
-                    countryData: [...urlData.analytics.countryData],
-                },
-            };
-            updateUrlData(object);
-            const result = await updateData(`${api_route}shortUrls`, JSON.stringify(object));
+            const result = await updateData(`${api_route}urls/${urlData.id}`, JSON.stringify(data));
+            updateUrlData(result);
             console.log('result: ', result);
         } catch (err) {
             console.log('error: ', err);
@@ -45,12 +32,12 @@ const ResultComponent: FunctionComponent<IProps> = ({ urlData, updateUrlData }: 
                 <h2>
                     <Button
                         type="link"
-                        href={urlData.fullUrl}
+                        href={urlData.full_url}
                         target="_blank"
                         style={{ marginLeft: '-1em' }}
                         onClick={_handleOnClick}
                     >
-                        {urlData.shortUrl}
+                        {urlData.short_url}
                     </Button>
                 </h2>
             </Col>
